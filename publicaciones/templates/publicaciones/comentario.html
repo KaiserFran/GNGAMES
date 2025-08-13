@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock %}
+
+
+
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Comentario</title>
+</head>
+<body>
+    <h1>Comentario para: {{ publicacion.titulo }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Comentar</button>
+    </form>
+    <a href="{% url 'lista_publicaciones' %}">Volver a publicaciones</a>
+</body>
+{% endblock %}
+</html>

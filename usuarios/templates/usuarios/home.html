@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock %}
+
+
+
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <section class="foto-portada">
+      <h1 class="title">BIENVENIDOS</h1>
+    </section>
+  <article class="integrante"><!-- cambiar la clase --> 
+    <h2>Descubrí el universo gamer chaqueño: desarrolla, jugá, conectate.</h2>
+  </article>
+  <br>
+    <p>
+       Tu espacio para explorar la pasión por los videojuegos y la programación desde el corazón del Chaco. En una industria joven, urbana y global como la de videojuegos en Argentina, 
+       nuestro blog nace con el propósito de despertar el talento local, compartir experiencias, tutoriales y novedades que conecten a jugadores, desarrolladores y curiosos chaqueños.
+    </p>
+      <img src="#" width="500px" alt="1% de desarrollo de videojuegos en chaco">
+    <h3>Inspiración e identidad local:</h3>
+    <p>
+      Conocé historias como Pixel Lab Chaco, un programa provincial que impulsa a todos, incluso sin experiencia, a formarse en desarrollo de videojuegos,
+       incluso sin experiencia, a formarse en desarrollo de videojuegos, con acompañamiento profesional  y financiamiento para hacer realidad tu idea 
+    </p>
+    noticiasdelparana.com.arargencon.org.
+    ###URL comentario
+ <!-- Agregar imagen -->
+    <h3>¿Por qué es importante?</h3>
+    <p>
+     En Argentina, los videojuegos emergen como una industria cultural y económica poderosa: joven, conectada globalmente y con fuerte potencial exportador NEA HOY.
+    </p>
+    <p>
+      Aquí en el Chaco, programas públicos, redes de creadores y asociaciones como Ew Gaming Club están sembrando las bases para que ese talento local crezca 
+      y brille desde nuestra propia tierra.
+    </p>
+#---------------------------------------------------------------------------------------------------------------------------------------------------------
+    {% if user.is_authenticated %}
+        <h1>Bienvenido, {{ user.username }}!</h1>
+        <p>Esta es la página principal de tu proyecto.</p>
+    {% else %}
+        <h1>Hola, visitante!</h1>
+        <p>Para acceder a tu cuenta, por favor <a href="{% url 'login' %}">inicia sesión</a>.</p>
+        <p>¿No tenés cuenta? <a href="{% url 'register' %}">Registrate aquí</a>.</p>
+    {% endif %}
+</body>
+{% endblock %}
+</html>

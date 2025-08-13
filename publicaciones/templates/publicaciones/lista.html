@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock %}
+
+
+
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Publicaciones</title>
+</head>
+<body>
+    <h1>Lista de publicaciones</h1>
+    
+{% if user.is_authenticated %}
+  <p><a href="{% url 'crear_publicacion' %}">➕ Crear nueva publicación</a></p>
+{% else %}
+  <p>Debes <a href="{% url 'login' %}">iniciar sesión</a> para publicar.</p>
+{% endif %}
+
+    <ul>
+        {% for publicacion in publicaciones %}
+            <li>
+                <strong>{{ publicacion.titulo }}</strong> — {{ publicacion.usuario.username }}<br>
+                {% if publicacion.imagen %}
+                    <img src="{{ publicacion.imagen.url }}" alt="{{ publicacion.titulo }}" width="200">
+                {% endif %}
+                <p>{{ publicacion.descripcion|linebreaks }}</p>
+                <small>{{ publicacion.fecha_creacion }}</small>
+
+                <!-- BOTÓN BORRAR (solo dueño) -->
+                {% if publicacion.usuario == user %}
+                    <a href="{% url 'borrar_publicacion' publicacion.pk %}" style="color:red;">🗑 Borrar</a>
+                {% endif %}
+
+                <!-- BLOQUE DE COMENTARIOS -->
+                <h4>Comentarios:</h4>
+                <ul>
+                    {% for comentario in publicacion.comentarios.all %}
+                        <li><strong>{{ comentario.usuario.username }}:</strong> {{ comentario.texto }} <small>({{ comentario.fecha_creacion }})</small></li>
+                    {% empty %}
+                        <li>No hay comentarios aún.</li>
+                    {% endfor %}
+                </ul>
+                <a href="{% url 'agregar_comentario' publicacion.pk %}">Agregar comentario</a>
+                <!-- FIN BLOQUE DE COMENTARIOS -->
+            </li>
+        {% empty %}
+            <li>No hay publicaciones aún.</li>
+        {% endfor %}
+    </ul>
+</body>
+{% endblock %}
+</html>
