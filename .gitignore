@@ -1,18 +1,28 @@
 # --- Entorno virtual ---
+venv/
+env/
 entorno/
 
-# --- Archivos de Django ---
+# --- Archivos compilados de Python ---
 *.pyc
+*.pyo
+*.pyd
 __pycache__/
-db.sqlite3
 
-# --- Archivos de usuario / subidas ---
-media/
-fotos_perfil/
+# --- Base de datos SQLite ---
+db.sqlite3
 
 # --- Configuración privada ---
 .env
 
 # --- Archivos de sistema ---
-.DS_Stores
+.DS_Store
 Thumbs.db
+
+# --- Archivos de migración cacheados ---
+*/migrations/__pycache__/
+
+# --- Staticfiles recolectados ---
+staticfiles/
+
+# Nota: dejamos /static y /media para subirlos al repo
