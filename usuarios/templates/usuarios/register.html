@@ -1,13 +1,61 @@
 {% extends "base.html" %}
-{% block title %}Inicio{% endblock %}
-
-
-
-
+{% block title %}Registro{% endblock %}
 {% block content %}
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Registrarse</button>
-</form>
+
+<style>
+    main {
+    display: flex;
+    justify-content: center;  /* centra horizontalmente */
+    align-items: center;      /* centra verticalmente */
+    height: 100vh;            /* ocupa toda la ventana */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+.registro-box {
+    background-color: rgba(255, 255, 255, 0.9); /* caja blanca semi-transparente */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    width: 350px; /* ancho fijo */
+    text-align: center;
+}
+
+.registro-box h2 {
+    margin-bottom: 20px;
+}
+
+.registro-box button {
+    background-color: #6a0dad;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.registro-box button:hover {
+    background-color: #4b0082;
+}
+
+.registro-box a {
+    color: #6a0dad;
+    text-decoration: none;
+}
+
+.registro-box a:hover {
+    text-decoration: underline;
+}
+
+</style>
+<main>
+    <div class="registro-box">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Registrarse</button>
+        </form>
+    </div>
+</main>
 {% endblock %}

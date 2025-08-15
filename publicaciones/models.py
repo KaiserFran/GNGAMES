@@ -7,10 +7,23 @@ class Publicacion(models.Model):
     descripcion = models.TextField()
     imagen = models.ImageField(upload_to='publicaciones/', blank=True, null=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.titulo
-
+    CATEGORIAS = [
+            ('ACC', 'Acción'),
+            ('TER', 'Terror'),
+            ('AVN', 'Aventura'),
+            ('CAR', 'Carreras'),
+            ('DIV', 'Diversión'),
+            ('MAB', 'Mundo Abierto'),
+            ('SHO', 'Shooter'),
+            ('MUL', 'Multijugador'),
+            ('PEL', 'Pelea'),
+            ('OTR', 'Otros'),
+        ]
+    categoria = models.CharField(max_length=3, choices=CATEGORIAS, default='OTR')
+    
+def __str__(self):
+    return f"{self.titulo} - {self.get_categoria_display()}"
+    
 
 class Comentario(models.Model):
     publicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='comentarios')

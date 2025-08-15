@@ -9,7 +9,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home')  # o donde quieras redirigir
+            return redirect('home') 
     else:
         form = AuthenticationForm()
     return render(request, 'usuarios/login.html', {'form': form})
@@ -28,10 +28,6 @@ def register_view(request):
         form = CustomUserCreationForm()
     return render(request, 'usuarios/register.html', {'form': form})
 
-
-# Para registro y perfil habría que crear formularios y vistas también
-
-# Crear la vista home
 def home(request):
     return render(request, 'usuarios/home.html')
 

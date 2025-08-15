@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Inicio{% endblock %}
+{% block title %}Lista{% endblock %}
 
 
 
@@ -11,45 +11,68 @@
     <title>Publicaciones</title>
 </head>
 <body>
+<main class="estilo_main">
     <h1>Lista de publicaciones</h1>
     
-{% if user.is_authenticated %}
-  <p><a href="{% url 'crear_publicacion' %}">➕ Crear nueva publicación</a></p>
-{% else %}
-  <p>Debes <a href="{% url 'login' %}">iniciar sesión</a> para publicar.</p>
-{% endif %}
+    {% if user.is_authenticated %}
+      <p>
+        <a href="{% url 'crear_publicacion' %}" 
+           style="display:inline-block; background-color:#0151f0; color:white; padding:8px 16px; border-radius:5px; text-decoration:none; margin-top:10px; transition: background-color 0.3s;">
+           Crear nueva publicación
+        </a>
+      </p>
+    {% else %}
+      <p>Debes <a href="{% url 'login' %}">iniciar sesión</a> para publicar.</p>
+    {% endif %}
 
-    <ul>
-        {% for publicacion in publicaciones %}
-            <li>
-                <strong>{{ publicacion.titulo }}</strong> — {{ publicacion.usuario.username }}<br>
-                {% if publicacion.imagen %}
-                    <img src="{{ publicacion.imagen.url }}" alt="{{ publicacion.titulo }}" width="200">
-                {% endif %}
-                <p>{{ publicacion.descripcion|linebreaks }}</p>
-                <small>{{ publicacion.fecha_creacion }}</small>
+    <!-- FILTRO POR CATEGORÍA -->
+    <div style="margin-bottom:20px;">
+        <form method="get">
+            <label for="categoria">Filtrar por categoría:</label>
+            <select name="categoria" id="categoria" 
+                    onchange="this.form.submit()" 
+                    style="display:inline-block; background-color:#0151f0; color:white; padding:8px 16px; border-radius:5px; border:none; cursor:pointer; transition: background-color 0.3s;">
+                <option value="">Todas</option>
+                <option value="ACC" {% if request.GET.categoria == "ACC" %}selected{% endif %}>Acción</option>
+                <option value="TER" {% if request.GET.categoria == "TER" %}selected{% endif %}>Terror</option>
+                <option value="AVN" {% if request.GET.categoria == "AVN" %}selected{% endif %}>Aventura</option>
+                <option value="CAR" {% if request.GET.categoria == "CAR" %}selected{% endif %}>Carreras</option>
+                <option value="DIV" {% if request.GET.categoria == "DIV" %}selected{% endif %}>Diversión</option>
+                <option value="MAB" {% if request.GET.categoria == "MAB" %}selected{% endif %}>Mundo Abierto</option>
+                <option value="SHO" {% if request.GET.categoria == "SHO" %}selected{% endif %}>Shooter</option>
+                <option value="MUL" {% if request.GET.categoria == "MUL" %}selected{% endif %}>Multijugador</option>
+                <option value="PEL" {% if request.GET.categoria == "PEL" %}selected{% endif %}>Pelea</option>
+                <option value="OTR" {% if request.GET.categoria == "OTR" %}selected{% endif %}>Otros</option>
+            </select>
+        </form>
+    </div>
 
-                <!-- BOTÓN BORRAR (solo dueño) -->
-                {% if publicacion.usuario == user %}
-                    <a href="{% url 'borrar_publicacion' publicacion.pk %}" style="color:red;">🗑 Borrar</a>
-                {% endif %}
-
-                <!-- BLOQUE DE COMENTARIOS -->
-                <h4>Comentarios:</h4>
-                <ul>
-                    {% for comentario in publicacion.comentarios.all %}
-                        <li><strong>{{ comentario.usuario.username }}:</strong> {{ comentario.texto }} <small>({{ comentario.fecha_creacion }})</small></li>
-                    {% empty %}
-                        <li>No hay comentarios aún.</li>
-                    {% endfor %}
-                </ul>
-                <a href="{% url 'agregar_comentario' publicacion.pk %}">Agregar comentario</a>
-                <!-- FIN BLOQUE DE COMENTARIOS -->
-            </li>
-        {% empty %}
-            <li>No hay publicaciones aún.</li>
-        {% endfor %}
-    </ul>
+    <!-- LISTA DE PUBLICACIONES -->
+    {% for publicacion in publicaciones %}
+        <div class="publicacion-container" 
+             style="border:1px solid #ddd; border-radius:8px; padding:15px; margin-bottom:20px; background-color:#f9f9f9;">
+            <h2>{{ publicacion.titulo }}</h2>
+            <p><strong>Categoria:</strong> {{ publicacion.get_categoria_display }}</p>
+            {% if publicacion.imagen %}
+                <img src="{{ publicacion.imagen.url }}" alt="{{ publicacion.titulo }}" 
+                style="max-width:200px; max-height:150px; width:auto; height:auto; border-radius:5px; display:block; margin:0 auto 10px auto;">
+            {% endif %}
+            <p>{{ publicacion.descripcion|truncatewords:20 }}</p>
+            <a href="{% url 'detalle_publicacion' publicacion.pk %}" 
+               style="display:inline-block; background-color:#0151f0; color:white; padding:8px 16px; border-radius:5px; text-decoration:none; margin-top:10px; transition: background-color 0.3s;">
+               Ver publicación completa
+            </a>
+            {% if user.is_authenticated and publicacion.usuario == user %}
+                <a href="{% url 'borrar_publicacion' publicacion.pk %}" 
+                   style="background-color:#f44336; color:white; padding:5px 10px; border-radius:5px; text-decoration:none; margin-left:10px;">
+                   Borrar
+                </a>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>No hay publicaciones disponibles.</p>
+    {% endfor %}
+</main>
 </body>
 {% endblock %}
 </html>

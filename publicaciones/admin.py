@@ -1,3 +1,10 @@
 from django.contrib import admin
+from .models import Publicacion, Comentario
 
-# Register your models here.
+@admin.register(Publicacion)
+class PublicacionAdmin(admin.ModelAdmin):
+    list_display = ['titulo', 'usuario', 'categoria', 'fecha_creacion']
+
+@admin.register(Comentario)
+class ComentarioAdmin(admin.ModelAdmin):
+    list_display = ['publicacion', 'usuario', 'fecha_creacion']

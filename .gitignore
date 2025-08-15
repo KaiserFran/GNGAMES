@@ -1,0 +1,18 @@
+# --- Entorno virtual ---
+entorno/
+
+# --- Archivos de Django ---
+*.pyc
+__pycache__/
+db.sqlite3
+
+# --- Archivos de usuario / subidas ---
+media/
+fotos_perfil/
+
+# --- Configuración privada ---
+.env
+
+# --- Archivos de sistema ---
+.DS_Stores
+Thumbs.db

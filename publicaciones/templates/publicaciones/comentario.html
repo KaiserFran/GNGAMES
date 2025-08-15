@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Inicio{% endblock %}
+{% block title %}comentario{% endblock %}
 
 
 
@@ -11,6 +11,7 @@
     <title>Agregar Comentario</title>
 </head>
 <body>
+<main class="estilo_main" >
     <h1>Comentario para: {{ publicacion.titulo }}</h1>
     <form method="POST">
         {% csrf_token %}
@@ -18,6 +19,7 @@
         <button type="submit">Comentar</button>
     </form>
     <a href="{% url 'lista_publicaciones' %}">Volver a publicaciones</a>
+</main>
 </body>
 {% endblock %}
 </html>

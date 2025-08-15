@@ -4,7 +4,7 @@ from .models import Publicacion, Comentario
 class PublicacionForm(forms.ModelForm):
     class Meta:
         model = Publicacion
-        fields = ['titulo', 'descripcion', 'imagen']
+        fields = ['titulo', 'descripcion', 'imagen', 'categoria']
 
 
 class ComentarioForm(forms.ModelForm):

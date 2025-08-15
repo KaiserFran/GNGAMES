@@ -7,5 +7,6 @@ urlpatterns = [
     path('editar/<int:pk>/', views.editar_publicacion, name='editar_publicacion'),
     path('borrar/<int:pk>/', views.borrar_publicacion, name='borrar_publicacion'),
     path('comentario/<int:pk>/', views.agregar_comentario, name='agregar_comentario'),
+    path('publicacion/<int:pk>/', views.detalle_publicacion, name='detalle_publicacion'),
 ]
 
