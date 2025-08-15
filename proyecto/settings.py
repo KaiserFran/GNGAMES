@@ -16,11 +16,11 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+
 # --- Static files ---
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",  # carpeta con tus CSS, JS, imágenes originales
-]
+STATICFILES_DIRS = [ BASE_DIR / "static", ]  # carpeta con tus CSS, JS, imágenes originales
 STATIC_ROOT = BASE_DIR / "staticfiles"  # aquí se guardarán los estáticos recolectados
 
 # --- Media files ---
@@ -92,7 +92,6 @@ DATABASES = {
         'NAME': 'proyecto',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': 'localhost',   # o la IP del servidor
         'PORT': '3306',        # puerto por defecto de MySQL
     }
 }
@@ -133,16 +132,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'  # mejor con la barra inicial
-STATICFILES_DIRS = [BASE_DIR / 'static']  # tus archivos de desarrollo
-STATIC_ROOT = BASE_DIR / 'staticfiles'    # carpeta para producción
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-import os
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
